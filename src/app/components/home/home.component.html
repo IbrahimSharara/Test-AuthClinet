@@ -1,0 +1,19 @@
+<app-navbar></app-navbar>
+<div class="felx items-center flex-col pt-56 h-screen">
+  <div class="h-screen">
+    <h1 class="text-4xl text-center font-bold my-10">
+      Welcome To
+      <span class="text-4xl text-green-800">My Application</span>
+    </h1>
+    @if (!isLogedIn) {
+      <div class="flex flex-col items-center gab-5 justify-center">
+        You are not logged in !
+        <a
+          routerLink="/login"
+          class="bg-blue-500 hover:bg-blue-400 text-white font-bold py-2 px-4 my-4 rounded-md"
+          >Login</a
+        >
+      </div>
+    }
+  </div>
+</div>
