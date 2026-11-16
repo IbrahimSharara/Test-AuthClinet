@@ -1,11 +1,12 @@
 import { NavbarComponent } from './../components/navbar/navbar.component';
 import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { Injectable, model } from '@angular/core';
 import { LoginModel } from '../models/login-model';
 import { environment } from '../../environments/environment.development';
 import { map, Observable } from 'rxjs';
 import { AuthResponse } from '../models/auth-response';
 import { jwtDecode } from 'jwt-decode';
+import { RegisterModel } from '../models/register-model';
 
 @Injectable({
   providedIn: 'root',
@@ -52,5 +53,9 @@ export class AuthService {
       roles: decodedToken.role || [],
     };
     return userDetails;
+  }
+
+  register(dto: RegisterModel): Observable<any> {
+    return this.http.post<any>(environment.apiUrl + 'Account/register', dto);
   }
 }
