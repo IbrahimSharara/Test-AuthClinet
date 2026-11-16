@@ -3,6 +3,7 @@ import { RouterLink } from '@angular/router';
 import { MatAnchor } from '@angular/material/button';
 import { NavbarComponent } from '../navbar/navbar.component';
 import { environment } from '../../../environments/environment.development';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-home',
@@ -13,9 +14,10 @@ import { environment } from '../../../environments/environment.development';
 })
 export class HomeComponent implements OnInit {
   isLogedIn!: boolean;
-  constructor() {}
+  currentUser!: any;
+  constructor(private auth: AuthService) {}
   ngOnInit(): void {
     this.isLogedIn = localStorage.getItem(environment.tokenKey) ? true : false;
-    console.log(this.isLogedIn);
+    this.currentUser = this.auth.getUserDetails();
   }
 }

@@ -1,9 +1,11 @@
+import { NavbarComponent } from './../components/navbar/navbar.component';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { LoginModel } from '../models/login-model';
 import { environment } from '../../environments/environment.development';
 import { map, Observable } from 'rxjs';
 import { AuthResponse } from '../models/auth-response';
+import { jwtDecode } from 'jwt-decode';
 
 @Injectable({
   providedIn: 'root',
@@ -21,5 +23,34 @@ export class AuthService {
         return res;
       }),
     );
+  }
+
+  getToken = (): string | null => localStorage.getItem(environment.tokenKey);
+
+  isLogedIn = () => (this.getToken() ? true : false);
+  isTokenExpired() {
+    const token = this.getToken();
+    if (!token) return true;
+    const decodedToken = jwtDecode(token);
+    const isTokenExpire = Date.now() >= decodedToken['exp']! * 1000;
+    if (isTokenExpire) this.logout();
+    return isTokenExpire;
+  }
+
+  logout() {
+    localStorage.removeItem(environment.tokenKey);
+  }
+
+  getUserDetails() {
+    const token = this.getToken();
+    if (!token) return null;
+    const decodedToken: any = jwtDecode(token);
+    const userDetails = {
+      id: decodedToken.nameid,
+      fullname: decodedToken.name,
+      email: decodedToken.email,
+      roles: decodedToken.role || [],
+    };
+    return userDetails;
   }
 }
