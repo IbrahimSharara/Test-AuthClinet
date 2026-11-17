@@ -8,16 +8,17 @@ import { AuthResponse } from '../models/auth-response';
 import { jwtDecode } from 'jwt-decode';
 import { RegisterModel } from '../models/register-model';
 import { UserDetails } from '../models/user-details';
+import { TokenValue } from '../models/token-value';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
-  route: string = environment.apiUrl + 'Account/Login';
+  route: string = environment.apiUrl + 'Account';
   constructor(private http: HttpClient) {}
 
   login(dto: LoginModel): Observable<AuthResponse> {
-    return this.http.post<AuthResponse>(this.route, dto).pipe(
+    return this.http.post<AuthResponse>(this.route + '/Login', dto).pipe(
       map((res) => {
         if (res) {
           localStorage.setItem(environment.tokenKey, res.token);
@@ -57,11 +58,13 @@ export class AuthService {
   }
 
   register(dto: RegisterModel): Observable<any> {
-    return this.http.post<any>(environment.apiUrl + 'Account/register', dto);
+    return this.http.post<any>(this.route + '/register', dto);
   }
   getDetails(): Observable<UserDetails> {
-    return this.http.get<UserDetails>(
-      environment.apiUrl + 'Account/userDetails',
-    );
+    return this.http.get<UserDetails>(this.route + '/userDetails');
+  }
+
+  getAll(): Observable<UserDetails[]> {
+    return this.http.get<UserDetails[]>(this.route + '/GetAllUsers');
   }
 }

@@ -15,11 +15,13 @@
             <div
               class="bg-red-500 text-white font-bold shadow-md rounded-full w-5 h-5 flex justify-center items-center"
             >
-              {{ currentUser.fullname[0].toUpperCase() }}
+              {{ currentUser?.fullname[0].toUpperCase() }}
             </div>
             <div class="text-white flex flex-col">
-              <h1 class="p-0 m-0 font-medium">{{ currentUser.fullname }}</h1>
-              <p class="p-0 m-0 font-medium text-x4">{{ currentUser.roles }}</p>
+              <h1 class="p-0 m-0 font-medium">{{ currentUser?.fullname }}</h1>
+              <p class="p-0 m-0 font-medium text-x4">
+                {{ currentUser?.roles }}
+              </p>
             </div>
           </a>
           <mat-menu #menu="matMenu">
@@ -32,6 +34,10 @@
               <span>Logout</span>
             </button>
           </mat-menu>
+          @if (currentUser?.roles.includes("Admin")) {}
+          <a routerLink="/users">
+            <mat-icon class="mat-18">groups</mat-icon>
+          </a>
         </div>
       </div>
     } @else {

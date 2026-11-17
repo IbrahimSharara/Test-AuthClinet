@@ -50,7 +50,6 @@ export class LoginComponent {
     if (this.form.valid) {
       this.loginService.login(this.form.value).subscribe({
         next: (res) => {
-          console.log('fdssssssssssssssssss');
           this.matsnka.open(res.message, 'Close', {
             duration: 5000,
             horizontalPosition: 'center',
