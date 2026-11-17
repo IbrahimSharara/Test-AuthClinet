@@ -50,14 +50,20 @@ export class LoginComponent {
     if (this.form.valid) {
       this.loginService.login(this.form.value).subscribe({
         next: (res) => {
+          console.log('fdssssssssssssssssss');
           this.matsnka.open(res.message, 'Close', {
             duration: 5000,
             horizontalPosition: 'center',
           });
           if (res) this.router.navigate(['/']);
         },
+        error: (err) => {
+          this.matsnka.open(err.error.message, 'Close', {
+            duration: 5000,
+            horizontalPosition: 'center',
+          });
+        },
       });
     }
-    console.log(this.form);
   }
 }

@@ -7,6 +7,7 @@ import { map, Observable } from 'rxjs';
 import { AuthResponse } from '../models/auth-response';
 import { jwtDecode } from 'jwt-decode';
 import { RegisterModel } from '../models/register-model';
+import { UserDetails } from '../models/user-details';
 
 @Injectable({
   providedIn: 'root',
@@ -57,5 +58,10 @@ export class AuthService {
 
   register(dto: RegisterModel): Observable<any> {
     return this.http.post<any>(environment.apiUrl + 'Account/register', dto);
+  }
+  getDetails(): Observable<UserDetails> {
+    return this.http.get<UserDetails>(
+      environment.apiUrl + 'Account/userDetails',
+    );
   }
 }
