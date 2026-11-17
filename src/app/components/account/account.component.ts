@@ -1,3 +1,4 @@
+import { UpperCasePipe } from '@angular/common';
 import { UserDetails } from '../../models/user-details';
 import { AuthService } from './../../services/auth.service';
 import { Component, inject, OnInit } from '@angular/core';
@@ -5,7 +6,7 @@ import { Component, inject, OnInit } from '@angular/core';
 @Component({
   selector: 'app-account',
   standalone: true,
-  imports: [],
+  imports: [UpperCasePipe],
   templateUrl: './account.component.html',
   styleUrl: './account.component.css',
 })
