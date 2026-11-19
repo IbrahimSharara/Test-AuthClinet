@@ -9,22 +9,11 @@ export const roleGuard: CanActivateFn = (route, state) => {
   let router = inject(Router);
   const user = auth.getUserDetails();
   if (user) {
-    user.subscribe({
-      next: (res) => {
-        if (res && res?.roles.indexOf('Admin') >= 0) return true;
-        else {
-          matsnack.open(
-            'You dont have permissions to enter this screen',
-            'close',
-            {
-              duration: 3000,
-            },
-          );
-          router.navigate(['']);
-          return false;
-        }
-      },
-    });
+    if (user.roles.indexOf('Admin') >= 0) return true;
   }
+  matsnack.open('You dont have permissions to enter this screen', 'close', {
+    duration: 3000,
+  });
+  router.navigate(['']);
   return false;
 };

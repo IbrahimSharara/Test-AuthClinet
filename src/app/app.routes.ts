@@ -8,6 +8,7 @@ import { AccountComponent } from './components/account/account.component';
 import { authGuard } from './guards/auth.guard';
 import { UsersComponent } from './components/users/users.component';
 import { roleGuard } from './guards/role.guard';
+import { RoleComponent } from './components/role/role.component';
 
 export const routes: Routes = [
   {
@@ -20,6 +21,7 @@ export const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
   { path: 'account', component: AccountComponent, canActivate: [authGuard] },
+  { path: 'roles', component: RoleComponent, canActivate: [authGuard] },
   {
     path: 'users',
     component: UsersComponent,
